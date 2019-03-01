@@ -10,6 +10,15 @@ function Window_Load_Handler() {
 
 }
 
+/*var picsagomb = document.getElementById('lofasz');
+picsagomb.addEventListener('click', Button_Click_Handler, false);
+
+function Button_Click_Handler()
+{
+   fx();
+   drawAtlagTable(); 
+}*/
+
 function AdatSor(Tanulo, Tantargy, Erdemjegy, Datum) {
     this.Tanulo = Tanulo;
     this.Tantargy = Tantargy;
@@ -111,6 +120,7 @@ function drawTable() {
 }
 /*dataStoreGenerator();
 console.log(JSON.stringify(dataStore));*/
+
 function fx() {
     var result = [];
     for (var i = 0; i < nevek.length; i++) {
@@ -125,23 +135,23 @@ function fx() {
             //console.log(temp);
         }
     }
+    //console.log(JSON.stringify(result));
     console.log(result);
-    return result;
+    return (result);
 }
- var felevi = fx();
+var felevi = fx();
 
 function drawAtlagTable() {
     var nodeTBody = document.querySelector('#pnlAtlag TABLE > TBODY');
     nodeTBody.innerText = '';
     for (var i = 0; i < felevi.length; i++) {
-
         var resultTR = document.createElement('TR');
         var TD1 = document.createElement('TD');
         var TD2 = document.createElement('TD');
         var TD3 = document.createElement('TD');
         TD1.innerText = felevi[i].Tanulo;
         TD2.innerText = felevi[i].Tantargy;
-        TD3.innerText = felevi[i].Atlag;
+        TD3.innerText = fx()[i].Atlag
         resultTR.appendChild(TD1);
         resultTR.appendChild(TD2);
         resultTR.appendChild(TD3);
