@@ -6,7 +6,16 @@ function Window_Load_Handler() {
     drawTable();
 
     fx();
-    drawAtlagTable();
+    //drawAtlagTable(fx());
+
+    var nodeClickFilterButton = document.getElementById('szures');
+    nodeClickFilterButton.addEventListener('click', StudentFilter_Click_Handler, false);
+
+    var nodeClickGenerateButton = document.getElementById('printGenerator');
+    nodeClickGenerateButton.addEventListener('click', PrintTable_Click_Handler, false);
+
+    var nodeClickPrintButton = document.getElementById('printGrades');
+    nodeClickPrintButton.addEventListener('click', PrintGrades_Click_Handler, false);
 
 }
 
@@ -123,6 +132,7 @@ console.log(JSON.stringify(dataStore));*/
 
 function fx() {
     var result = [];
+  
     for (var i = 0; i < nevek.length; i++) {
         for (var j = 0; j < tantargyak.length; j++) {
             var temp = dataStore.filter((item) => { return item.Tanulo === nevek[i] && item.Tantargy === tantargyak[j] });
@@ -130,31 +140,34 @@ function fx() {
             for (var k = 0; k < temp.length; k++) {
                 sum += temp[k].Erdemjegy;
             }
-            var atlag = sum / temp.length;
-            result.push({ Tanulo: nevek[i], Tantargy: tantargyak[j], Atlag: atlag });
+            
+            
+            
+            //var atlag = sum / kabbe;
+            result.push({ Tanulo: nevek[i], Tantargy: tantargyak[j], Atlag: sum/temp.length });
             //console.log(temp);
         }
     }
     //console.log(JSON.stringify(result));
-    console.log(result);
+    //console.log(fx());
     return (result);
 }
-var felevi = fx();
 
-function drawAtlagTable() {
+
+function drawAtlagTable(studentObjektum) {
     var nodeTBody = document.querySelector('#pnlAtlag TABLE > TBODY');
     nodeTBody.innerText = '';
-    for (var i = 0; i < felevi.length; i++) {
+    for (var i = 0; i < studentObjektum.length; i++) {
         var resultTR = document.createElement('TR');
         var TD1 = document.createElement('TD');
         var TD2 = document.createElement('TD');
-        var TD3 = document.createElement('TD');
-        TD1.innerText = felevi[i].Tanulo;
-        TD2.innerText = felevi[i].Tantargy;
-        TD3.innerText = fx()[i].Atlag
+        
+        
+        TD1.innerText = studentObjektum[i].Tantargy;
+        TD2.innerText = studentObjektum[i].Atlag.toFixed(1);
         resultTR.appendChild(TD1);
         resultTR.appendChild(TD2);
-        resultTR.appendChild(TD3);
+        
         nodeTBody.appendChild(resultTR);
         
 
@@ -163,5 +176,152 @@ function drawAtlagTable() {
     return resultTR;
 }
 
+function Student1 ()
+{
+    var result = [];
+    for (var i = 0; i< fx().length; i++)
+    {
+        if (fx()[i].Tanulo.indexOf('A Péter')>-1)
+        {
+            result.push(fx()[i]);
+        }
+    }
+    return result;
+}
+function Student2 ()
+{
+    var result = [];
+    for (var i = 0; i< fx().length; i++)
+    {
+        if (fx()[i].Tanulo.indexOf('O Rafael')>-1)
+        {
+            result.push(fx()[i]);
+        }
+    }
+    return result;
+}
+function Student3 ()
+{
+    var result = [];
+    for (var i = 0; i< fx().length; i++)
+    {
+        if (fx()[i].Tanulo.indexOf('Cs Ádám')>-1)
+        {
+            result.push(fx()[i]);
+        }
+    }
+    return result;
+}
+function Student4 ()
+{
+    var result = [];
+    for (var i = 0; i< fx().length; i++)
+    {
+        if (fx()[i].Tanulo.indexOf('P Imre')>-1)
+        {
+            result.push(fx()[i]);
+        }
+    }
+    
+    return result;
+}
+
+function ChooseFilter(number)
+{
+    /*if (number == 1)
+    {
+        var chosenFilter = WholeClassFilter();
+    }*/
+    if (number ==2)
+    {
+        var chosenFilter = Student1();
+    }
+    else if (number == 3)
+    {
+        var chosenFilter = Student2();
+    }
+    else if (number == 4)
+    {
+        var chosenFilter = Student3();
+    }
+    else if (number == 5)
+    {
+        var chosenFilter = Student4();
+    }
+    return chosenFilter;
+}  
+
+function StudentFilter_Click_Handler()
+{
+    var filterSelect = document.getElementById('selectTanulo');
+    var kategoria = parseInt(filterSelect.value);
+    var filterText = fx().Tanulo; 
+     
+    var filteredStudent = ChooseFilter(kategoria, filterText);
+    var nodeTBodyAtlag = document.getElementById('pnlAtlag');
+    drawAtlagTable(filteredStudent);
+
+}
+
+function drawPrintTable(studentObjektum)
+{
+    
+    var nodePrintSection = document.getElementById('printTable');
+    var resultDIV = document.createElement('DIV');
+
+    var resultTable = document.createElement('TABLE');
+    var resultTHead = document.createElement('THEAD');
+    var resultTRinTHead = document.createElement('TR');
+    var resultTHinTHEAD = document.createElement('TH')
+    var resultTFoot = document.createElement('TFOOT');
+    var resultTBody = document.createElement('TBODY');
+    for (var i = 0; i<studentObjektum.length;i++)
+    {
+        var resultTR = document.createElement('TR');
+        var resultTD1 = document.createElement('TD');
+        var resultTD2 = document.createElement('TD');
+        resultTD1.innerText = studentObjektum[i].Tantargy;
+        resultTD2.innerText = studentObjektum[i].Atlag.toFixed(0);
+        resultTHinTHEAD.innerText = studentObjektum[i].Tanulo;
+        resultTable.setAttribute('border', 1)
+        resultDIV.setAttribute('class', 'pageBreak');
+        resultTR.appendChild(resultTD1);
+        resultTR.appendChild(resultTD2);
+        resultTRinTHead.appendChild(resultTHinTHEAD);
+        resultTBody.appendChild(resultTR);
+        resultTHead.appendChild(resultTRinTHead);
+        resultTable.appendChild(resultTHead);
+        resultTable.appendChild(resultTFoot);
+        resultTable.appendChild(resultTBody);
+        nodePrintSection.appendChild(resultTable);
+        nodePrintSection.appendChild(resultDIV);
+    }
+}
+
+function PrintTable_Click_Handler()
+{
+    var nodeClickGenerateButton = document.getElementById('printTable');
+    nodeClickGenerateButton.innerText = '';
+    drawPrintTable(Student1());
+    drawPrintTable(Student2());
+    drawPrintTable(Student3());
+    drawPrintTable(Student4());
+}
+
+function PrintGrades_Click_Handler()
+{
+    window.print();
+
+}
+
+
+
+/*function TanuloFilter_Change_Handler()
+{
+    var filterSelect = document.getElementById('selectTanulo');
+    var filterValue = parseInt(filterSelect.value);
+    var filterDone = ChooseFilter(filterValue);
+    drawAtlagTable(filterDone);
+}*/
 
 

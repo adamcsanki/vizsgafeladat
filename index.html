@@ -5,12 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="./style.css">
     <title>Document</title>
 </head>
 
 <body>
-    <h1>Félévi jegyek</h1>
-    <section id="pnlTable">
+    <h1 class="noprint">Félévi jegyek</h1>
+    <section id="pnlTable" class="noprint">
         <table border="1">
             <thead>
                 <tr>
@@ -28,23 +29,30 @@
             </tbody>
         </table>
     </section>
-    <section>
+    <div>
+    <input type="button" id="printGenerator" value="Generálás" class="noprint">
+    <input type="button" id="printGrades" value="Nyomtatás" class="noprint">
+    <section id="printTable">
+
+    </section>
+    </div>
+    
+    <section id="pnlAtlag" class="noprint">
         <form>
             <select name="" id="selectTanulo">
-                <option value="1">Osztály</option>
+                <!--<option value="1">Osztály</option>-->
                 <option value="2">A Péter</option>
                 <option value="3">O Rafael</option>
                 <option value="4">Cs Ádám</option>
                 <option value="5">P Imre</option>
             </select>
+            <input type="button" id="szures" value="Szűrés">
         </form>
-    </section>
-    <section id="pnlAtlag">
-        <input type="button" id="lofasz" value="Nyomj meg te geci!">
+    
         <table border = "1">
             <thead>
                 <tr>
-                    <th>Név</th>
+                    
                     <th>Tantárgy</th>
                     <th>Átlag</th>
                 </tr>

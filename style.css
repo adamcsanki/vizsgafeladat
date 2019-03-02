@@ -1,0 +1,32 @@
+@media all{
+    .pageBreak {
+        display:none;
+    }
+}
+@media print {
+    .noprint {
+      display: none;
+    }
+  }
+
+  @media print {
+	.pageBreak	{ display:block; page-break-before: always !important; }
+}
+
+section {
+    display: block;
+    width: 400px;
+    
+    float: left;
+}
+
+div {
+    display: block;
+    width: 400px;
+   
+    float: left;
+}
+
+table {
+    border: groove;
+}
