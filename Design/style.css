@@ -46,11 +46,11 @@ table {
 }
 
 #pnlTable {
-    height: 800px;
+    height: 600px;
     overflow: scroll;
     box-sizing: border-box;
     width: 470px;
-    margin-left: 650px;
+    margin-left: 20%;
  
     
 }
