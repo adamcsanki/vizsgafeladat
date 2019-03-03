@@ -39,10 +39,6 @@ section{
 }
 
 
-
-
-
-
 table {
     border: 2px solid rgb(212, 92, 22);
    margin: 20px;
@@ -75,5 +71,9 @@ input[type="button"]:hover{
     background-color: rgb(233, 126, 54);
     transition: 500ms;
     
+}
+
+h1 {
+    text-align: center;
 }
 
