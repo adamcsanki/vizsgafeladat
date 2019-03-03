@@ -4,6 +4,7 @@ window.addEventListener('load', Window_Load_Handler, false);
 function Window_Load_Handler() {
     LoadAdatsorokFromDatastore();
     drawTable();
+    drawAtlagTable(Student1());
 
     fx();
     //drawAtlagTable(fx());
@@ -265,37 +266,72 @@ function StudentFilter_Click_Handler()
 
 function drawPrintTable(studentObjektum)
 {
-    
     var nodePrintSection = document.getElementById('printTable');
     var resultDIV = document.createElement('DIV');
-
+    
     var resultTable = document.createElement('TABLE');
     var resultTHead = document.createElement('THEAD');
     var resultTRinTHead = document.createElement('TR');
-    var resultTHinTHEAD = document.createElement('TH')
+    var resultTR2inTHead = document.createElement('TR');
+    var resultTHinTHEAD = document.createElement('TH');
+    var resultTH2inTHead = document.createElement('TH');
+    var resultTH3inTHead = document.createElement('TH');
     var resultTFoot = document.createElement('TFOOT');
     var resultTBody = document.createElement('TBODY');
     for (var i = 0; i<studentObjektum.length;i++)
     {
+        var erdemjegy = parseInt(studentObjektum[i].Atlag.toFixed(0));
         var resultTR = document.createElement('TR');
         var resultTD1 = document.createElement('TD');
         var resultTD2 = document.createElement('TD');
         resultTD1.innerText = studentObjektum[i].Tantargy;
-        resultTD2.innerText = studentObjektum[i].Atlag.toFixed(0);
+        resultTD2.innerHTML = TanuloSzovegesErtekelese(erdemjegy);
         resultTHinTHEAD.innerText = studentObjektum[i].Tanulo;
+        resultTH2inTHead.innerText = 'Tantárgy';
+        resultTH3inTHead.innerText = 'Átlag';
         resultTable.setAttribute('border', 1)
         resultDIV.setAttribute('class', 'pageBreak');
+        resultTHinTHEAD.setAttribute('colspan', 2);
         resultTR.appendChild(resultTD1);
         resultTR.appendChild(resultTD2);
         resultTRinTHead.appendChild(resultTHinTHEAD);
+        resultTR2inTHead.appendChild(resultTH2inTHead);
+        resultTR2inTHead.appendChild(resultTH3inTHead);
         resultTBody.appendChild(resultTR);
         resultTHead.appendChild(resultTRinTHead);
+        resultTHead.appendChild(resultTR2inTHead);
         resultTable.appendChild(resultTHead);
         resultTable.appendChild(resultTFoot);
         resultTable.appendChild(resultTBody);
         nodePrintSection.appendChild(resultTable);
         nodePrintSection.appendChild(resultDIV);
     }
+}
+
+function TanuloSzovegesErtekelese(erdemjegy)
+{
+    var SzovegesErtekeles;
+
+    switch(erdemjegy)
+    {
+        case 1:
+        SzovegesErtekeles='Elégtelen (1)';
+        break;
+        case 2:
+        SzovegesErtekeles='Elégséges (2)';
+        break;
+        case 3:
+        SzovegesErtekeles='Közepes (3)';
+        break;
+        case 4:
+        SzovegesErtekeles='Jó (4)';
+        break;
+        case 5:
+        SzovegesErtekeles='Jeles (5)';
+        break;
+        
+    }
+    return SzovegesErtekeles;
 }
 
 function PrintTable_Click_Handler()
